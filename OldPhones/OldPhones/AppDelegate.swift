@@ -13,18 +13,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var navigationController: UINavigationController?
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        if let window = window {
-            let mainVC = MenuViewController()
-            navigationController = UINavigationController(rootViewController: mainVC)
-            window.rootViewController = navigationController
-            window.makeKeyAndVisible()
-        }
+        let nav1 = UINavigationController()
+        let mainView = CustomTabBarController(nibName: nil, bundle: nil) //ViewController = Name of your controller
+        nav1.viewControllers = [mainView]
+        self.window!.rootViewController = nav1
+        
+        
+        window?.makeKeyAndVisible()
+        
+//        window?.rootViewController = UINavigationController (rootViewController: CustomTabBarController())
         
         return true
     }

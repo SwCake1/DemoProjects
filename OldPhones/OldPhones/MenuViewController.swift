@@ -12,13 +12,24 @@ import UIKit
 class MenuViewController: UITableViewController {
     
     let phones = [
-        (phoneName: "1907 Wall Set", picName: "image-cell1"), (phoneName: "1921 Dial Phone", picName: "image-cell2"), (phoneName: "1937 Desk Set", picName: "image-cell3"), (phoneName: "1984 Moto Portable", picName: "image-cell4"),
+        Phone(name: "1907 Wall Set", logoImgName: "image-cell1", pictureName: "phone-fullscreen1"),
+        Phone(name: "1921 Dial Phone", logoImgName: "image-cell2", pictureName: "phone-fullscreen2"),
+        Phone(name: "1937 Desk Set", logoImgName: "image-cell3", pictureName: "phone-fullscreen3"),
+        Phone(name: "1984 Moto Portable", logoImgName: "image-cell4", pictureName: "phone-fullscreen4"),
     ]
+    
+    let productsButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.text = "Products"
+        return button
+    }()
     
     let cellId = "cellId"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
         tableView.tableFooterView = UIView()
         tableView.backgroundColor = UIColor(red: 239.0/255.0, green: 239.0/255.0, blue: 244.0/255.0, alpha: 1)
@@ -27,9 +38,8 @@ class MenuViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = phones[indexPath.row].phoneName
-        let cellImgName = phones[indexPath.row].picName
-        cell.imageView?.image = UIImage(imageLiteralResourceName: cellImgName)
+        cell.textLabel?.text = phones[indexPath.row].name
+        cell.imageView?.image = phones[indexPath.row].logo
         cell.accessoryType = .disclosureIndicator
         return cell
     }
@@ -43,8 +53,10 @@ class MenuViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let registerVC = ProductViewController()
-        self.navigationController?.pushViewController(registerVC, animated: true)
+        let productVC = ProductViewController()
+        productVC.phoneName = phones[indexPath.row].name
+        productVC.phoneImg = phones[indexPath.row].picture
+        self.navigationController?.pushViewController(productVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

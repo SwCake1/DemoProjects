@@ -12,6 +12,9 @@
 		68677A042326CF1100F0333B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 68677A032326CF1100F0333B /* Assets.xcassets */; };
 		68677A072326CF1100F0333B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 68677A052326CF1100F0333B /* LaunchScreen.storyboard */; };
 		68677A0F2326D00500F0333B /* ProductViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68677A0E2326D00500F0333B /* ProductViewController.swift */; };
+		68677A142327739000F0333B /* Phone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68677A132327739000F0333B /* Phone.swift */; };
+		68677A162327A59000F0333B /* AboutUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68677A152327A59000F0333B /* AboutUsViewController.swift */; };
+		68677A182327CE0000F0333B /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68677A172327CE0000F0333B /* CustomTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		68677A062326CF1100F0333B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		68677A082326CF1100F0333B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		68677A0E2326D00500F0333B /* ProductViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductViewController.swift; sourceTree = "<group>"; };
+		68677A132327739000F0333B /* Phone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Phone.swift; sourceTree = "<group>"; };
+		68677A152327A59000F0333B /* AboutUsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsViewController.swift; sourceTree = "<group>"; };
+		68677A172327CE0000F0333B /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +61,11 @@
 			isa = PBXGroup;
 			children = (
 				686779FC2326CF0F00F0333B /* AppDelegate.swift */,
+				68677A172327CE0000F0333B /* CustomTabBarController.swift */,
 				686779FE2326CF0F00F0333B /* MenuViewController.swift */,
 				68677A0E2326D00500F0333B /* ProductViewController.swift */,
+				68677A152327A59000F0333B /* AboutUsViewController.swift */,
+				68677A132327739000F0333B /* Phone.swift */,
 				68677A032326CF1100F0333B /* Assets.xcassets */,
 				68677A052326CF1100F0333B /* LaunchScreen.storyboard */,
 				68677A082326CF1100F0333B /* Info.plist */,
@@ -134,6 +143,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68677A162327A59000F0333B /* AboutUsViewController.swift in Sources */,
+				68677A142327739000F0333B /* Phone.swift in Sources */,
+				68677A182327CE0000F0333B /* CustomTabBarController.swift in Sources */,
 				68677A0F2326D00500F0333B /* ProductViewController.swift in Sources */,
 				686779FF2326CF0F00F0333B /* MenuViewController.swift in Sources */,
 				686779FD2326CF0F00F0333B /* AppDelegate.swift in Sources */,
