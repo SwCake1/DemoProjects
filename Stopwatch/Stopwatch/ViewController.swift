@@ -8,12 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    let cellId = "cellId"
     
     var time = 0.0
     var timer = Timer()
+    var lapTime = 0.0
+    var lapTimer = Timer()
     var timerIsActive = false
-    var numLaps = 0
+    var laps: [String] = []
     
     let timerContainerView: UIView = {
         let view = UIView()
@@ -44,16 +48,17 @@ class ViewController: UIViewController {
     }()
     
     let resetLapButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitleColor(.black, for: .normal)
         button.setTitle("Lap", for: .normal)
         button.isEnabled = false
+        button.setTitleColor(.gray, for: .disabled)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     let startStopButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(type: .system)
         button.setTitleColor(.green, for: .normal)
         button.setTitle("Start", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -77,7 +82,12 @@ class ViewController: UIViewController {
         setupView()
         startStopButton.addTarget(self, action: #selector(startStopAction), for: .touchUpInside)
         resetLapButton.addTarget(self, action: #selector(resetLapAction), for: .touchUpInside)
+
+        lapsTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        lapsTableView.dataSource = self
+        
     }
+    
 
     func setupView() {
         view.backgroundColor = .white
@@ -160,12 +170,16 @@ class ViewController: UIViewController {
         startStopButton.setTitleColor(.red, for: .normal)
         resetLapButton.setTitle("Lap", for: .normal)
         startStopButton.setTitle("Stop", for: .normal)
+        
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(UpdateTimer), userInfo: nil, repeats: true)
+        lapTimer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(UpdateLapTimer), userInfo: nil, repeats: true)
+        
         timerIsActive = true
     }
     
     func stopTimer() {
         timer.invalidate()
+        lapTimer.invalidate()
         startStopButton.setTitle("Start", for: .normal)
         startStopButton.setTitleColor(.green, for: .normal)
         resetLapButton.setTitle("Reset", for: .normal)
@@ -175,23 +189,61 @@ class ViewController: UIViewController {
     func resetTimer() {
         currentLapTimeLabel.text = "00:00:00"
         timeLabel.text = "00:00:00"
+        time = 0.0
+        lapTime = 0.0
+        laps.removeAll()
+
+        lapsTableView.reloadData()
+//        let range = NSMakeRange(0, lapsTableView.numberOfSections)
+//        let sections = NSIndexSet(indexesIn: range)
+//        lapsTableView.reloadSections(sections as IndexSet, with: .automatic)
+
+        
+        resetLapButton.setTitle("Lap", for: .normal)
+        resetLapButton.isEnabled = false
     }
     
     func nextLap() {
-        
-        numLaps += 1
-
-//        lapsTableView.insertRows(at: [IndexPath(row: row, section: section)], with: .none)
+        lapsTableView.beginUpdates()
+        laps.append(String(currentLapTimeLabel.text!))
+        lapsTableView.insertRows(at: [IndexPath(row: laps.count-1, section: 0)], with: .none)
+        lapsTableView.endUpdates()
+        lapTime = 0.0
     }
     
     @objc func UpdateTimer() {
         time = time + 0.1
+
         let minutes = Int(time) / 6000
         let seconds = Int(time) / 100 % 60
         let ms = Int(time) % 100
         
-        currentLapTimeLabel.text = String(format:"%02i:%02i:%02i", minutes, seconds, ms)
-        timeLabel.text = currentLapTimeLabel.text
+        timeLabel.text = String(format:"%02i:%02i:%02i", minutes, seconds, ms)
     }
-}
+    
+    @objc func UpdateLapTimer() {
+        lapTime = lapTime + 0.1
 
+        let minutes = Int(lapTime) / 6000
+        let seconds = Int(lapTime) / 100 % 60
+        let ms = Int(lapTime) % 100
+        
+        currentLapTimeLabel.text = String(format:"%02i:%02i:%02i", minutes, seconds, ms)
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return laps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: UITableViewCell.CellStyle.value1, reuseIdentifier: cellId)
+        cell.textLabel?.text = "Lap \(indexPath.row + 1)"
+        cell.detailTextLabel?.text = laps[indexPath.row]
+        return cell
+    }
+    
+}
