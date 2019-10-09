@@ -8,14 +8,8 @@
 
 import UIKit
 
-struct ArtWork {
+struct ArtWork: Decodable {
     let title : String
-    let image : UIImage
+    let image : String
     let info: String
-    
-    init(title: String, imageName: String, info: String) {
-        self.title = title
-        self.image = UIImage(imageLiteralResourceName: imageName)
-        self.info = info
-    }
 }

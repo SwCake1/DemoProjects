@@ -8,9 +8,13 @@
 
 import UIKit
 
-struct Artist {
+struct JsonData: Decodable {
+    let artists: [Artist]
+}
+
+struct Artist: Decodable {
     let name : String
-    let picture : UIImage
+    let image : String
     let bio: String
     let works: [ArtWork]
     
@@ -18,10 +22,28 @@ struct Artist {
         
         var artists = [Artist]()
         
-        let path = Bundle.main.path(forResource: "artists", ofType: "json")
+        guard let path = Bundle.main.url(forResource: "artists", withExtension: "json") else {
+            print("File could not be located at the give url")
+            return artists
+        }
         
+        do {
+            let data = try Data(contentsOf: path)
+            
+//            guard let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+//                print("Could not cast JSON content as a Dictionary<String>, Any")
+//                return artists
+//            }
+            
+            let artistsJson = try JSONDecoder().decode(JsonData.self, from: data)
+            
+            artists = artistsJson.artists
+            
+        } catch {
+            print("Error: \(error)")
+        }
         
-        // json decode
+
         
         return artists
     }
