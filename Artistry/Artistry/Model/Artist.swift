@@ -16,7 +16,7 @@ struct Artist: Decodable {
     let name : String
     let image : String
     let bio: String
-    let works: [ArtWork]
+    var works: [ArtWork]
     
     static func readResources() -> [Artist] {
         
@@ -29,11 +29,6 @@ struct Artist: Decodable {
         
         do {
             let data = try Data(contentsOf: path)
-            
-//            guard let dictionary = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
-//                print("Could not cast JSON content as a Dictionary<String>, Any")
-//                return artists
-//            }
             
             let artistsJson = try JSONDecoder().decode(JsonData.self, from: data)
             

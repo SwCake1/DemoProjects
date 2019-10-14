@@ -12,24 +12,32 @@ class ArtistryCell: UITableViewCell {
     
     let artistryImageView: UIImageView = {
         let imageView = UIImageView()
-//        imageView.image = UIImage()
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.backgroundColor = .red
         return imageView
     }()
     
-    let bioTextField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-//        textField
-//        textField.isEditing = false
-        return textField
+    let bioLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 0
+        label.textColor = .systemGray
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        return label
+    }()
+    
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.backgroundColor = .orange
+        label.textColor = .white
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
-//        contentView.backgroundColor = .yellow
     }
     
     required init?(coder: NSCoder) {
@@ -37,10 +45,25 @@ class ArtistryCell: UITableViewCell {
     }
     
     func setupView() {
-        contentView.addSubview(bioTextField)
-        bioTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-        bioTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-//        artistryImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
-//        artistryImageView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        contentView.addSubview(bioLabel)
+        bioLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        bioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10 ).isActive = true
+        bioLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 0.4).isActive = true
+        bioLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        
+
+        
+        contentView.addSubview(artistryImageView)
+        artistryImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10).isActive = true
+        artistryImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        artistryImageView.trailingAnchor.constraint(equalTo: bioLabel.leadingAnchor, constant: -10).isActive = true
+        artistryImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40).isActive = true
+        
+        contentView.addSubview(nameLabel)
+        
+        nameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10).isActive = true
+        nameLabel.trailingAnchor.constraint(equalTo: bioLabel.leadingAnchor, constant: -10).isActive = true
     }
 }
