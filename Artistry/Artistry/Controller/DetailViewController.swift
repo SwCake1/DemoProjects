@@ -30,7 +30,6 @@ class DetailViewController: UITableViewController, UITextViewDelegate {
         cell.workNameLabel.text = work.title
         cell.workImageView.image = UIImage(named: work.image)
         cell.selectionStyle = .none
-        
         cell.moreInfoTextView.text = work.isExpanded ? work.info : "Select For More Info >"
         cell.moreInfoTextView.textAlignment = work.isExpanded ? .left : .center
 
@@ -50,8 +49,6 @@ class DetailViewController: UITableViewController, UITextViewDelegate {
         cell.moreInfoTextView.text = work.isExpanded ? work.info : "Select For More Info >"
         cell.moreInfoTextView.textAlignment = work.isExpanded ? .left : .center
         
-        self.tableView.beginUpdates()
-        self.tableView.endUpdates()
         
         let size = CGSize(width: view.frame.width, height: .infinity)
         let estimatedSize = cell.moreInfoTextView.sizeThatFits(size)
@@ -63,7 +60,10 @@ class DetailViewController: UITableViewController, UITextViewDelegate {
             }
         }
         
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        self.tableView.beginUpdates()
+        self.tableView.endUpdates()
+        
+        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
         
     }
     
@@ -72,7 +72,7 @@ class DetailViewController: UITableViewController, UITextViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        tableView.estimatedRowHeight = 200
+        tableView.estimatedRowHeight = 250
         return UITableView.automaticDimension
     }
     

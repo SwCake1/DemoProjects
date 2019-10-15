@@ -13,7 +13,10 @@ class ArtistryCell: UITableViewCell {
     let artistryImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 5
+        imageView.layer.borderWidth = 1
         return imageView
     }()
     
