@@ -6,18 +6,36 @@
 //  Copyright © 2019 punkundermyskin. All rights reserved.
 //
 
-struct Episode {
+struct Info: Decodable {
+    let count: Int
+    let pages: Int
+    let next: String?
+    let prev: String?
+}
+
+struct JsonData: Decodable {
+    let info: Info
+    let results: [Episode]
+}
+
+class Episode: Codable {
     
-    let id: Int
-    let name: String
-    let airDate: String
-    let episode: String
-    let characters: [Character]
+    let id: Int?
+    let name: String?
+    let airDate: String?
+    let episode: String?
+    let characters: [String]?
     
-//    init(name: String, category: String) {
-//        
-//        self.name = name
-//        self.category = category
-//        self.picture = UIImage(imageLiteralResourceName: name)
+    
+//    required init(from decoder: Decoder) throws {
+//        let container = try decoder.container(keyedBy: CodingKeys.self)
+//        self.id = try container.decodeIfPresent(Int.self, forKey: .id)
+////        if let name = try container.decodeIfPresent(String.self, forKey: .name) {
+////            self.name = name
+////        }
+//        self.name = try container.decodeIfPresent(String.self, forKey: .name)
+//        self.airDate = try container.decodeIfPresent(String.self, forKey: .airDate)
+//        self.episode = try container.decodeIfPresent(String.self, forKey: .episode)
+//        self.characters = try container.decodeIfPresent([String].self, forKey: .episode)
 //    }
 }

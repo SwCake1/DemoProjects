@@ -25,11 +25,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let splitViewController = UISplitViewController()
         
-        let detailViewController = DetailViewController()
-        let episodesViewController = EpisodesViewController()
-        let navigationViewController = UINavigationController(rootViewController: episodesViewController)
+        let masterViewController = MasterViewController()
+        
+        let detailViewController = DetailViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        
+        let navigationViewController = UINavigationController(rootViewController: masterViewController)
         
         splitViewController.viewControllers = [navigationViewController, detailViewController]
+        
+        let firstEpisode = masterViewController.episodes.first
+        detailViewController.episode = firstEpisode //!
+        
+        masterViewController.delegate = detailViewController
         
         splitViewController.preferredPrimaryColumnWidthFraction = 1/3
         

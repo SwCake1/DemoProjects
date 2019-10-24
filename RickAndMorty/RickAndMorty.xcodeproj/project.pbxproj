@@ -12,11 +12,14 @@
 		6849DBFC235C75BE0053DE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6849DBFB235C75BE0053DE4C /* Assets.xcassets */; };
 		6849DBFF235C75BE0053DE4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6849DBFD235C75BE0053DE4C /* LaunchScreen.storyboard */; };
 		6849DC0E235D016C0053DE4C /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC0D235D016C0053DE4C /* DetailViewController.swift */; };
-		6849DC10235D01980053DE4C /* EpisodesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC0F235D01980053DE4C /* EpisodesViewController.swift */; };
+		6849DC10235D01980053DE4C /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC0F235D01980053DE4C /* MasterViewController.swift */; };
 		6849DC12235D05300053DE4C /* Episode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC11235D05300053DE4C /* Episode.swift */; };
 		6849DC14235D05A70053DE4C /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC13235D05A70053DE4C /* Character.swift */; };
 		6849DC17235D0ACD0053DE4C /* LBTATools in Frameworks */ = {isa = PBXBuildFile; productRef = 6849DC16235D0ACD0053DE4C /* LBTATools */; };
 		6849DC19235D0BF40053DE4C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6849DC18235D0BF40053DE4C /* Extensions.swift */; };
+		68AABDD1235E451B0044C3AE /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 68AABDD0235E451B0044C3AE /* Kingfisher */; };
+		68AABDD3235F85DB0044C3AE /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68AABDD2235F85DB0044C3AE /* CharacterCell.swift */; };
+		68C4954323617BB300B2E4C4 /* EpisodeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C4954223617BB300B2E4C4 /* EpisodeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,10 +30,12 @@
 		6849DBFE235C75BE0053DE4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6849DC00235C75BE0053DE4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6849DC0D235D016C0053DE4C /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
-		6849DC0F235D01980053DE4C /* EpisodesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodesViewController.swift; sourceTree = "<group>"; };
+		6849DC0F235D01980053DE4C /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		6849DC11235D05300053DE4C /* Episode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Episode.swift; sourceTree = "<group>"; };
 		6849DC13235D05A70053DE4C /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		6849DC18235D0BF40053DE4C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		68AABDD2235F85DB0044C3AE /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
+		68C4954223617BB300B2E4C4 /* EpisodeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpisodeCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				68AABDD1235E451B0044C3AE /* Kingfisher in Frameworks */,
 				6849DC17235D0ACD0053DE4C /* LBTATools in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -78,8 +84,8 @@
 		6849DC06235C77720053DE4C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				6849DC0F235D01980053DE4C /* MasterViewController.swift */,
 				6849DC0D235D016C0053DE4C /* DetailViewController.swift */,
-				6849DC0F235D01980053DE4C /* EpisodesViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -96,6 +102,8 @@
 		6849DC08235C77830053DE4C /* View */ = {
 			isa = PBXGroup;
 			children = (
+				68C4954223617BB300B2E4C4 /* EpisodeCell.swift */,
+				68AABDD2235F85DB0044C3AE /* CharacterCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -144,6 +152,7 @@
 			name = RickAndMorty;
 			packageProductDependencies = (
 				6849DC16235D0ACD0053DE4C /* LBTATools */,
+				68AABDD0235E451B0044C3AE /* Kingfisher */,
 			);
 			productName = RickAndMorty;
 			productReference = 6849DBEF235C75BC0053DE4C /* RickAndMorty.app */;
@@ -175,6 +184,7 @@
 			mainGroup = 6849DBE6235C75BC0053DE4C;
 			packageReferences = (
 				6849DC15235D0ACD0053DE4C /* XCRemoteSwiftPackageReference "LBTATools" */,
+				68AABDCF235E451B0044C3AE /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 6849DBF0235C75BC0053DE4C /* Products */;
 			projectDirPath = "";
@@ -202,13 +212,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6849DC10235D01980053DE4C /* EpisodesViewController.swift in Sources */,
+				6849DC10235D01980053DE4C /* MasterViewController.swift in Sources */,
 				6849DBF3235C75BC0053DE4C /* AppDelegate.swift in Sources */,
 				6849DBF5235C75BC0053DE4C /* SceneDelegate.swift in Sources */,
 				6849DC14235D05A70053DE4C /* Character.swift in Sources */,
 				6849DC12235D05300053DE4C /* Episode.swift in Sources */,
 				6849DC0E235D016C0053DE4C /* DetailViewController.swift in Sources */,
+				68AABDD3235F85DB0044C3AE /* CharacterCell.swift in Sources */,
 				6849DC19235D0BF40053DE4C /* Extensions.swift in Sources */,
+				68C4954323617BB300B2E4C4 /* EpisodeCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,6 +418,14 @@
 				minimumVersion = 1.0.12;
 			};
 		};
+		68AABDCF235E451B0044C3AE /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -413,6 +433,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6849DC15235D0ACD0053DE4C /* XCRemoteSwiftPackageReference "LBTATools" */;
 			productName = LBTATools;
+		};
+		68AABDD0235E451B0044C3AE /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 68AABDCF235E451B0044C3AE /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

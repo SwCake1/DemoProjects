@@ -8,20 +8,13 @@
 
 import UIKit
 
-struct Character {
+struct Character: Decodable {
     
     let id: Int
     let name: String
-    let image: UIImage
+    let image: String
     let species: String
     let gender: String
     let origin: String
     let location: String
-    
-//    init(name: String, category: String) {
-//
-//        self.name = name
-//        self.category = category
-//        self.picture = UIImage(imageLiteralResourceName: name)
-//    }
 }
