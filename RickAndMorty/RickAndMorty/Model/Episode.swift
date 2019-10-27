@@ -6,25 +6,27 @@
 //  Copyright © 2019 punkundermyskin. All rights reserved.
 //
 
-struct Info: Decodable {
-    let count: Int
-    let pages: Int
-    let next: String?
-    let prev: String?
-}
+import TRON
+import SwiftyJSON
 
-struct JsonData: Decodable {
-    let info: Info
-    let results: [Episode]
-}
+//struct Info: Decodable {
+//    let count: Int
+//    let pages: Int
+//    let next: String?
+//    let prev: String?
+//}
+//
+//struct JsonData: Decodable {
+//    let info: Info
+//    let results: [Episode]
+//}
 
-class Episode: Codable {
-    
+struct Episode {
     let id: Int?
     let name: String?
     let airDate: String?
-    let episode: String?
-    let characters: [String]?
+    let episodeNum: String?
+    let characters: [String?]?
     
     
 //    required init(from decoder: Decoder) throws {

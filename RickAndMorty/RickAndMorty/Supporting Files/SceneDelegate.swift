@@ -33,14 +33,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         splitViewController.viewControllers = [navigationViewController, detailViewController]
         
-        let firstEpisode = masterViewController.episodes.first
-        detailViewController.episode = firstEpisode //!
+//        let firstEpisode = masterViewController.episodes.first
+//        detailViewController.episode = firstEpisode //!
         
         masterViewController.delegate = detailViewController
         
         splitViewController.preferredPrimaryColumnWidthFraction = 1/3
         
         window?.rootViewController = splitViewController
+        
+//        window?.rootViewController = navigationViewController
 
         
         window?.makeKeyAndVisible()

@@ -12,7 +12,6 @@ import LBTATools
 class CharacterCell: UICollectionViewCell {
     
     let imageView = UIImageView(image: UIImage(named: "Morty"),contentMode: .scaleAspectFill)
-    
     let nameLabel = UILabel(text: "Morty Smith", font: .systemFont(ofSize: 17), textColor: .white, numberOfLines: 0)
     let speciesLabel = UILabel(text: "Species: Human", font: .systemFont(ofSize: 15),textColor: .white, numberOfLines: 0)
     let genderLabel = UILabel(text: "Gender: Male", font: .systemFont(ofSize: 15),textColor: .white, numberOfLines: 0)
