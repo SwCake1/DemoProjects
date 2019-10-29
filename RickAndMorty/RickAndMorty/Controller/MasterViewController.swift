@@ -19,30 +19,25 @@ class MasterViewController: UITableViewController {
     weak var delegate: EpisodeSelectionDelegate?
     
     var episodes: [Episode] = []
-    var characters: [Character] = []
+    private var characters: [Character] = []
     
-    private var filteredEpisodes = [Episode]()
+    private var filteredEpisodes: [Episode] = []
     
     private var searchController: UISearchController!
     
     private let group = DispatchGroup()
     
-//    private let lastPage = false
-    
     // MARK: - Constants
     
     private let cellID = "cellID"
     private let tron = TRON(baseURL: "https://rickandmortyapi.com")
-//    private var ApiPath = "/api/episode/"
-//    private var ApiQuery: String?
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(episodes)
-        
+        tableView.separatorStyle = .none
         tableView.register(EpisodeCell.self, forCellReuseIdentifier: cellID)
         setupNavBarView()
         setupSearchController()
@@ -59,7 +54,7 @@ class MasterViewController: UITableViewController {
         searchController = UISearchController(searchResultsController: nil)
         
         searchController.searchResultsUpdater = self
-        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
         searchController.obscuresBackgroundDuringPresentation = false
         definesPresentationContext = true
         searchController.searchBar.delegate = self
@@ -86,8 +81,8 @@ extension MasterViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         var episodeCharacters = [Character]()
         let selectedEpisode = episodes[indexPath.row]
-//        guard let charactersUrl = selectedEpisode.characters else { return }
-        for selectedcharacter in selectedEpisode.characters! {
+        guard let selectedEpisodeCharacters = selectedEpisode.characters else { return }
+        for selectedcharacter in selectedEpisodeCharacters {
             for character in characters {
                 if selectedcharacter == character.url {
                     episodeCharacters.append(character)
@@ -106,19 +101,31 @@ extension MasterViewController {
 extension MasterViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath) as! EpisodeCell
-        let episode = episodes[indexPath.row]
-        cell.nameLabel.text = episode.name
-        cell.episodeLabel.text = episode.episodeNum
+        let episode: Episode
+        if searchController.isActive {
+            episode = filteredEpisodes[indexPath.row]
+        } else {
+            episode = episodes[indexPath.row]
+        }
+        cell.episodeLabel.text = episode.episodeNum 
         cell.airDateLabel.text = episode.airDate
+        guard let name = episode.name else { return cell }
+        cell.nameLabel.text = #""\#(name)""#
+        
         return cell
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100
+        tableView.estimatedRowHeight = 150
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return episodes.count
+        if searchController.isActive {
+            return filteredEpisodes.count
+        } else {
+            return episodes.count
+        }
     }
 
 }
@@ -139,12 +146,13 @@ extension MasterViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
-        let searchText = searchController.searchBar.text!
+        guard let searchText = searchController.searchBar.text else { return }
         
-//        filteredEpisodes = episodes.filter { episode in
-//              return episode.name.lowercased().contains(searchText.lowercased()) || searchText == ""
-//          }
-//        tableView.reloadData()
+        filteredEpisodes = episodes.filter { episode in
+            guard let name = episode.name else { return false }
+            return name.lowercased().contains(searchText.lowercased()) || searchText == ""
+          }
+        tableView.reloadData()
     }
 }
 
@@ -157,18 +165,33 @@ extension MasterViewController {
         for i in 0 ..< 2 {
             group.enter()
             fetchEpisodesPageJSON(page: i + 1)
-            print(123)
         }
         
         for i in 0 ..< 20 {
             group.enter()
             fetchCharactersPageJSON(page: i + 1)
-            print(123)
         }
         
         group.notify(queue: DispatchQueue.main, execute: {
             self.tableView.reloadData()
+            self.sendDataToDetailController()
         })
+    }
+    
+    private func sendDataToDetailController() {
+        var episodeCharacters = [Character]()
+        guard let firstEpisode = self.episodes.first, let firstEpisodeCharacters = firstEpisode.characters else { return }
+        for firstEpisodecharacter in firstEpisodeCharacters {
+            for character in self.characters {
+                if firstEpisodecharacter == character.url {
+                    episodeCharacters.append(character)
+                }
+            }
+        }
+        self.delegate?.episodeSelected(firstEpisode, episodeCharacters: episodeCharacters)
+        if let detailViewController = self.delegate as? DetailViewController {
+            self.splitViewController?.showDetailViewController(detailViewController, sender: nil)
+        }
     }
     
     private class EpisodesPageResource: JSONDecodable {
@@ -200,8 +223,6 @@ extension MasterViewController {
         let request: APIRequest<EpisodesPageResource, APIError> = tron.swiftyJSON.request("/api/episode/").parameters(["page" : page])
         
         request.perform(withSuccess: { (episodesPage) in
-            print("Successfully fetched our json objects")
-            print(episodesPage)
             guard let episodes = episodesPage.episodes else { return }
             self.episodes += episodes
             self.group.leave()
@@ -243,11 +264,10 @@ extension MasterViewController {
         }
     }
     
-    fileprivate func fetchCharactersPageJSON(page: Int) {
+    private func fetchCharactersPageJSON(page: Int) {
         let request: APIRequest<CharactersPageResource, APIError> = tron.swiftyJSON.request("/api/character/").parameters(["page" : page])
         
         request.perform(withSuccess: { (charactersPage) in
-            print("Successfully fetched our json objects")
             guard let characters = charactersPage.characters else { return }
             self.characters += characters
             self.group.leave()

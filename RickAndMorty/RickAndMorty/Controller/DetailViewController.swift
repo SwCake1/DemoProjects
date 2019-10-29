@@ -15,14 +15,15 @@ class DetailViewController: UICollectionViewController {
     
     var episode: Episode? {
         didSet {
-//            for character in episode?.characters ?? <#default value#> {
-//                fetchJSON(character)
-//            }
             collectionView.reloadData()
         }
     }
     
-    var characters: [Character] = []
+    var characters: [Character] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     // MARK: - Constants
     
@@ -32,7 +33,6 @@ class DetailViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("detail loadid")
         collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: cellID)
         collectionView.backgroundColor = UIColor.rgb(red: 74, green: 99, blue: 109)
     }
@@ -41,20 +41,21 @@ class DetailViewController: UICollectionViewController {
 extension DetailViewController: UICollectionViewDelegateFlowLayout {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return episode.characters.count
         return characters.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! CharacterCell
         let character = characters[indexPath.row]
-////        guard let imageUrl = URL(string: character.image) else { return }
-        let imageUrl = URL(string: character.image)
-        cell.imageView.load(url: imageUrl!)
-        cell.nameLabel.text = character.name
-        cell.speciesLabel.text = "Species: " + character.species
-        cell.originLabel.text = "Origin: " + character.origin
-        cell.locationLabel.text = "Location: " + character.location
-
+        guard let imageURL = character.image else { return cell }
+        guard let name = character.name else { return cell }
+        guard let species = character.species else { return cell }
+        guard let origin = character.origin else { return cell }
+        guard let location = character.location else { return cell }
+        cell.nameLabel.text = name
+        cell.speciesLabel.text = "Species: " + species
+        cell.originLabel.text = "Origin: " + origin
+        cell.locationLabel.text = "Location: " + location
+        cell.imageView.loadImage(urlString: imageURL)
         return cell
     }
     

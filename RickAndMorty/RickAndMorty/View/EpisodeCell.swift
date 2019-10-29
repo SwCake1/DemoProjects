@@ -41,6 +41,13 @@ class EpisodeCell: UITableViewCell {
         return label
     }()
     
+    let separatorLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupView()
@@ -55,12 +62,13 @@ class EpisodeCell: UITableViewCell {
         
         addSubview(nameLabel)
         nameLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -10).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: topAnchor, constant: 15).isActive = true
         nameLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         addSubview(episodeLabel)
         episodeLabel.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        episodeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 10).isActive = true
+        episodeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 15).isActive = true
+        episodeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
         episodeLabel.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
         
         addSubview(airDateLabel)
@@ -69,5 +77,9 @@ class EpisodeCell: UITableViewCell {
         airDateLabel.topAnchor.constraint(equalTo: topAnchor).isActive = true
         airDateLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
         
+        addSubview(separatorLine)
+        separatorLine.widthAnchor.constraint(equalTo: widthAnchor).isActive = true
+        separatorLine.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        separatorLine.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }

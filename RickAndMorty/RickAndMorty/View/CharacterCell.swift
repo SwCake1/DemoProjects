@@ -8,10 +8,17 @@
 
 import UIKit
 import LBTATools
+import LBTAComponents
 
 class CharacterCell: UICollectionViewCell {
     
-    let imageView = UIImageView(image: UIImage(named: "Morty"),contentMode: .scaleAspectFill)
+    let imageView: CachedImageView = {
+        let imageView = CachedImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.backgroundColor = UIColor.rgb(red: 94, green: 139, blue: 144)
+        return imageView
+    }()
+    
     let nameLabel = UILabel(text: "Morty Smith", font: .systemFont(ofSize: 17), textColor: .white, numberOfLines: 0)
     let speciesLabel = UILabel(text: "Species: Human", font: .systemFont(ofSize: 15),textColor: .white, numberOfLines: 0)
     let genderLabel = UILabel(text: "Gender: Male", font: .systemFont(ofSize: 15),textColor: .white, numberOfLines: 0)
